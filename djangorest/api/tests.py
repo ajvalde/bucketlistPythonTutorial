@@ -15,3 +15,19 @@ class ModelTestCase(TestCase):
         self.bucketlist.save()
         new_count = Bucketlist.objects.count()
         self.assertNotEqual(old_count, new_count)
+
+    class ViewTestCase(TestCase):
+        """Test suite for the api views."""
+        
+        def setUp(self):
+            """Define the test client and other test vars"""
+            self.client = APIClient()
+            self.bucketlist_data = {'name' : 'Go to Ibiza'}
+            self.response = self.client.post(
+                reverse('create'),
+                self.bucketlist_data,
+                format="json")
+
+        def test_api_can_create_a_bucketlist(self):
+            """ Test the api has bucket creation capability"""
+            self.assertEqual(self.response.stats_code, status.HTTP_201_CREATED)
