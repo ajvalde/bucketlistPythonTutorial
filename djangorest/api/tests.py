@@ -13,7 +13,7 @@ class ModelTestCase(TestCase):
         self.bucketlist = Bucketlist(name=self.bucketlist_name)
 
     def test_model_can_create_a_bucketlist(self):
-        """Test the bucketlist model can create a bucketlist."""
+        """Test the bucketlist model can create a bucketlist. """
         old_count = Bucketlist.objects.count()
         self.bucketlist.save()
         new_count = Bucketlist.objects.count()
