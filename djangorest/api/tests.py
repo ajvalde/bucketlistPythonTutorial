@@ -34,3 +34,13 @@ class ModelTestCase(TestCase):
         def test_api_can_create_a_bucketlist(self):
             """ Test the api has bucket creation capability"""
             self.assertEqual(self.response.stats_code, status.HTTP_201_CREATED)
+
+        def test_api_can_get_a_bucketlist(self):
+            """Test the api can get a given bucketlist."""
+            bucketlist = Bucketlist.objects.get()
+            response = self.client.get(
+                reverse('details',
+                kwargs={'pk' : bucketlist.id}), format="json")
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertContains(response, bucketlist)
