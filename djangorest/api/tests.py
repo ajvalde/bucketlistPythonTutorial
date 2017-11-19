@@ -44,3 +44,12 @@ class ModelTestCase(TestCase):
 
             self.assertEqual(response.status_code, status.HTTP_200_OK)
             self.assertContains(response, bucketlist)
+
+        def test_api_can_update_bucketlist(self):
+            """Test the api can update a given bucketlist."""
+            change_bucketlist = {'name' : 'Something new'}
+            res = self.client.put(
+                reverse('details', kwargs={'pk' : bucketlist.id}),
+                change_bucketlist, format="json")
+            
+            self.assertEqual(res.status_code, statue.HTTP_200_OK)
