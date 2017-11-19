@@ -53,3 +53,13 @@ class ModelTestCase(TestCase):
                 change_bucketlist, format="json")
             
             self.assertEqual(res.status_code, statue.HTTP_200_OK)
+
+        def test_api_can_delet_bucketlist(self):
+            """Test the api can delete a bucketlist"""
+            bucketlist = Bucketlist.objects.get()
+            response = self.client.delete(
+                reverse('details', kwargs={'pk' : bucketlist.id}),
+                format='json',
+                follow=True)
+            
+            self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
