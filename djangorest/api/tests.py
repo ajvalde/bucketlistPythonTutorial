@@ -11,6 +11,7 @@ class ModelTestCase(TestCase):
     def setUp(self):
         """Define the test client and other test variables."""
         user = User.objects.create(username="nerd")
+        
         self.bucketlist_name = "Write world class code"
         self.bucketlist = Bucketlist(name=self.bucketlist_name, owner=user)
 
@@ -26,7 +27,10 @@ class ModelTestCase(TestCase):
         
         def setUp(self):
             """Define the test client and other test vars"""
+            user = User.objects.create(username="nerd")
+
             self.client = APIClient()
+            self.client.force_authenticate(user=user)
             self.bucketlist_data = {'name' : 'Go to Ibiza'}
             self.response = self.client.post(
                 reverse('create'),
