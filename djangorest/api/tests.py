@@ -3,14 +3,16 @@ from .models import Bucketlist
 from rest_framework.test import APIClient
 from rest_framework import status
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import user
 
 class ModelTestCase(TestCase):
     """This class defines the test suite for the bucketlist model."""
 
     def setUp(self):
         """Define the test client and other test variables."""
+        user = User.objects.create(username="nerd")
         self.bucketlist_name = "Write world class code"
-        self.bucketlist = Bucketlist(name=self.bucketlist_name)
+        self.bucketlist = Bucketlist(name=self.bucketlist_name, owner=user)
 
     def test_model_can_create_a_bucketlist(self):
         """Test the bucketlist model can create a bucketlist. """
