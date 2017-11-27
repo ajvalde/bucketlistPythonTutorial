@@ -13,6 +13,7 @@ class CreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         """Save the post data when creating a new bucketlist."""
         serializer.save(owner=self.request.user)
+        permission_classes = (permissions.IsAuthenticated,)
     
 
 class DetailsView(generics.RetrieveUpdateDestroyAPIView):
